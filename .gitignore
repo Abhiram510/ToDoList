@@ -7,4 +7,5 @@ build/
 *.xcworkspace
 *.xcuserstate
 *.xcuserdatad
-*.xcodeproj/project.xcworkspace/
+*.xcodeproj/project.xcworkspace/GoogleService-Info.plist
+Other/GoogleService-Info.plist
