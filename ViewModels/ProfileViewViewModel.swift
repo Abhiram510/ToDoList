@@ -39,6 +39,18 @@ class ProfileViewViewModel: ObservableObject{
             }
     }
     
+    
+    func sendPasswordReset() {
+        guard let email = Auth.auth().currentUser?.email else { return }
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                print("Error sending reset email: \(error.localizedDescription)")
+            } else {
+                print("Password reset email sent")
+            }
+        }
+    }
+    
     func logOut(){
         do {
             try Auth.auth().signOut()

@@ -29,13 +29,8 @@ struct ProfileView: View {
     
     @ViewBuilder
     func profile(user: User) -> some View {
-        // Avatar
-        Image(systemName: "person.circle")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .foregroundColor(.blue)
-            .frame(width: 125, height: 125)
-            .padding()
+      
+        
         
         // Info: name, Email, Member since
         VStack(alignment: .leading) {
@@ -60,12 +55,29 @@ struct ProfileView: View {
         }
         .padding()
         
+        Button(action: {
+            viewModel.sendPasswordReset()
+        }) {
+            Text("Reset Password")
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(12)
+                .padding(.horizontal)
+        }
+
+        
         // Sign out
         Button("Log Out") {
             viewModel.logOut()
         }
-        .tint(.red)
+        .foregroundColor(.white)
+        .frame(maxWidth: .infinity)
         .padding()
+        .background(Color.red)
+        .cornerRadius(12)
+        .padding(.horizontal)
         
         Spacer()
         
