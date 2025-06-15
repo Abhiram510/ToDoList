@@ -20,7 +20,7 @@ class NewItemViewViewModel: ObservableObject{
         
     }
     
-    func save() {
+    func save(category: String){
         guard canSave else {
             return
         }
@@ -32,11 +32,14 @@ class NewItemViewViewModel: ObservableObject{
         
         // Create model
         let newId = UUID().uuidString
+        print("Saving task with category:", category)
+
         let newItem = ToDoListItem(id: newId,
                                    title: title,
                                    dueDate: dueDate.timeIntervalSince1970,
                                    createdDate: Date().timeIntervalSince1970,
-                                   isDone: false)
+                                   isDone: false,
+                                   category: category)
         
         
         

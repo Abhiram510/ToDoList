@@ -11,6 +11,12 @@ struct NewItemView: View {
     @StateObject var viewModel = NewItemViewViewModel()
     @Binding var newItemPresented: Bool
     
+    @State private var selectedCategory: String = "School"
+
+    private let categories = ["School", "Work", "Personal", "Other"]
+
+    
+    
     var body: some View {
         VStack {
             Text("New Item")
@@ -25,11 +31,22 @@ struct NewItemView: View {
                 //Due Date
                 DatePicker("Due Date", selection: $viewModel.dueDate)
                     .datePickerStyle(GraphicalDatePickerStyle())
+                
+                // Category Picker
+                Picker("Category", selection: $selectedCategory) {
+                    ForEach(categories, id: \.self) { category in
+                        Text(category)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.vertical, 8)
+
+                
                 // Button
                 TLButton(title: "Save",
                          background: .pink) {
                     if viewModel.canSave {
-                        viewModel.save()
+                        viewModel.save(category: selectedCategory)
                         newItemPresented = false
                     } else {
                         viewModel.showAlert = true
