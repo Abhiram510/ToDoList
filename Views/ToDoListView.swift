@@ -15,8 +15,7 @@ struct ToDoListView: View {
     @State private var expanded = Set<String>()
     @State private var ordered  = [String]()
     @State private var showingAIPicker = false
-    @State private var aiSelection    = Set<String>()   // NEW
-    @State private var showAIPlan     = false           // NEW
+    @State private var aiSelection: Set<String>?
     @Environment(\.editMode) private var editMode
 
     private let uid: String
@@ -82,21 +81,25 @@ struct ToDoListView: View {
         }
         // 1st sheet: folder picker
         .sheet(isPresented: $showingAIPicker) {
-            CategoryPickerView(
-                categories: ordered,
-                onConfirm: { picks in
-                    aiSelection = picks
-                    showAIPlan  = true
-                }
-            )
+            CategoryPickerView(categories: ordered) { picks in
+                guard !picks.isEmpty else { return }
+                aiSelection = picks          // ← THIS ALONE opens the planner
+            }
         }
-        // 2nd sheet: placeholder for AI study plan
-        .sheet(isPresented: $showAIPlan) {
-            Text("You chose:\n\(aiSelection.joined(separator: ", "))")
-                .font(.title3)
-                .padding()
-                .presentationDetents([.medium, .large])
+
+
+
+
+        // 2nd sheet: run the Gemini-powered planner
+        // sheet appears whenever aiSelection holds a non-nil set
+        .sheet(item: $aiSelection) { picks in
+            NavigationStack {
+                AIPlannerView(chosenCategories: picks,
+                              allTasks: items)
+            }
         }
+
+
     }
 
     // MARK: – helpers
@@ -126,8 +129,15 @@ private extension View {
 }
 
 
+
+extension Set: Identifiable where Element == String {
+    public var id: String { self.sorted().joined(separator: "|") }
+}
+
+
 #if DEBUG
 #Preview {
     ToDoListView(userId: "preview-user-id")
 }
 #endif
+
