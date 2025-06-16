@@ -13,9 +13,9 @@ struct RegisterView: View {
     var body: some View {
         VStack {
             HeaderView(title: "Register",
-                       subtitle: "Start organizing todos",
-                       angle: -15,
-                       background: .orange)
+                       subtitle: "Start planning today!",
+                       angle: -25,
+                       background: .purple)
             
             Form {
                 TextField("Full Name", text: $viewModel.name)
@@ -40,7 +40,7 @@ struct RegisterView: View {
                     .padding()
                 
             }
-            .offset(y: -50)
+            .offset(y: -10)
             
             Spacer()
             

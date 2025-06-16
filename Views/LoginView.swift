@@ -14,9 +14,9 @@ struct LoginView: View {
         NavigationView {
             VStack {
                 // Header
-                HeaderView(title: "To Do List",
-                           subtitle: "Get things done",
-                           angle: 15,
+                HeaderView(title: "SmartPlanr",
+                           subtitle: "",
+                           angle: 24,
                            background: .pink)
                 
                 
@@ -48,7 +48,7 @@ struct LoginView: View {
                         .padding()
                     
                 }
-                .offset(y: -50)
+                .offset(y: -10)
                 
                 // Create Account
                 VStack {
@@ -59,6 +59,8 @@ struct LoginView: View {
                 .padding(.bottom, 50)
                 
                 Spacer()
+                
+                
             }
         }
     }

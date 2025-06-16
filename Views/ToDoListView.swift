@@ -50,7 +50,7 @@ struct ToDoListView: View {
                 .listRowSpacing(6)
                 .id(ordered.joined())
                 .sectionSpacing(12)
-                .navigationTitle("To-Do List")
+                .navigationTitle("Tasks")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) { EditButton() }
                     ToolbarItem(placement: .navigationBarTrailing) {
